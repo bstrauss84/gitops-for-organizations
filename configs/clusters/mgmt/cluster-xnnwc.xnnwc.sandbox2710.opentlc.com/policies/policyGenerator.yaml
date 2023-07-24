@@ -29,20 +29,25 @@ policies:
   policySets:
     - ocp-hub
     - ocp-clusters
-- name: console-login-customization
+- name: policy-htpasswd-configs
+  manifests:
+    - path: oauth/overlays/htpass
+  policySets:
+    - ocp-clusters
+- name: policy-console-login-customization
   manifests:
     - path: web-console-customizations/matrix/matrix-login-template-secret.yaml
   policySets:
     - ocp-hub
     - ocp-clusters
-- name: console-login-customization-oauth
+- name: policy-console-login-customization-oauth
   manifests:
     - path: web-console-customizations/matrix/cluster-oauths-update.yaml
   policySets:
     - ocp-hub
     - ocp-clusters
   dependencies:
-    - name: console-login-customization
+    - name: policy-console-login-customization
 policySets:
   - name: ocp-hub
     placement:
