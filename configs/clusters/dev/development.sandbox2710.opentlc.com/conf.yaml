@@ -9,7 +9,7 @@ cluster:
 #  registry: quay-dev.io
 
 infraConfig:
-  include: false
+  include: true
   nodes:
   - ip-10-0-146-121.us-east-2.compute.internal
   - ip-10-0-149-129.us-east-2.compute.internal
