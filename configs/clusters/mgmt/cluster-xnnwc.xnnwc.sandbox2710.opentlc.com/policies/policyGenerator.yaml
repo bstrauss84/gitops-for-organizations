@@ -34,6 +34,7 @@ policies:
     - path: oauth/overlays/htpass
   policySets:
     - ocp-clusters
+  remediationAction: inform
 - name: policy-console-login-customization
   manifests:
     - path: web-console-customizations/matrix/matrix-login-template-secret.yaml
