@@ -35,7 +35,7 @@ policies:
   policySets:
     - ocp-hub
     - ocp-clusters
-  remediationAction: inform
+  remediationAction: enforce
 - name: policy-console-login-customization
   manifests:
     - path: web-console-customizations/matrix/matrix-login-template-secret.yaml
