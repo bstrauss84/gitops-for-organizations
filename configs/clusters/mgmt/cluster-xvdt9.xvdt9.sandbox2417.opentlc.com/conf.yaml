@@ -1,0 +1,26 @@
+cluster:
+  name: local-cluster
+  domain: sandbox2417.opentlc.com
+  fqdn: cluster-xvdt9.xvdt9.sandbox2417.opentlc.com
+  address: "https://api.cluster-xvdt9.xvdt9.sandbox2417.opentlc.com:6443"
+  environment: mgmt
+  cloud: aws
+  region: us-east-2
+#  registry: quay-dev.io
+
+
+infraConfig:
+  include: true
+  nodes:
+  - ip-10-0-174-237.us-east-2.compute.internal
+  - ip-10-0-248-197.us-east-2.compute.internal
+#  - ip-10-0-146-168.us-east-2.compute.internal
+#  - ip-10-0-158-25.us-east-2.compute.internal
+ 
+#catalogSource:
+#  rh_catalog_version: v4.10
+
+#ingress:
+#  controller:
+#    syslog:
+#      address: 10.9.0.1
