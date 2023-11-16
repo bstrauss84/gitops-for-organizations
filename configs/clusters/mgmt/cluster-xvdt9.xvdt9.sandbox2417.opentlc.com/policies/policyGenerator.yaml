@@ -33,6 +33,7 @@ policies:
   manifests:
     - path: oauth/overlays/htpass
   policySets:
+    - ocp-hub
     - ocp-clusters
   remediationAction: inform
 - name: policy-console-login-customization
