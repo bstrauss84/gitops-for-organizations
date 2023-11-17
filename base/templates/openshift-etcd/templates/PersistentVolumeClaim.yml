@@ -6,8 +6,8 @@ apiVersion: v1
 metadata:
   name: {{ .Values.etcdBackup.pvcName }}
   namespace: {{ .Values.etcdBackup.namespace }}
-  labels:
-    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
+#  labels:
+#    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce
