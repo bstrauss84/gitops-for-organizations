@@ -8,7 +8,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: configs/clusters/mgmt/cluster-xnnwc.xnnwc.sandbox2710.opentlc.com
+    path: configs/clusters/mgmt/cluster-xvdt9.xvdt9.sandbox2417.opentlc.com
     repoURL: >-
       https://github.com/bstrauss84/gitops-for-organizations.git
     targetRevision: develop
