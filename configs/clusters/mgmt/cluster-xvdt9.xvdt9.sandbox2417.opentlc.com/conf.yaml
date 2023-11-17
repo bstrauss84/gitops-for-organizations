@@ -16,7 +16,33 @@ infraConfig:
   - ip-10-0-248-197.us-east-2.compute.internal
 #  - ip-10-0-146-168.us-east-2.compute.internal
 #  - ip-10-0-158-25.us-east-2.compute.internal
- 
+
+etcdBackup:
+  include: true
+  namespace: etcdbackup
+  serviceAccount: etcdbackup-approver
+  labels:
+    app: etcd
+    component: backup
+  
+  clusterRoleName: use-privileged-scc
+  clusterRoleBindingName: etcd-backup-sa-privileged
+  
+  pvcName: etcd-backup
+  pvcStorage: 100Gi
+  storageClassName:  # Leave empty to use default storageclass
+  
+  cronJobName: cronjob-etcd-backup
+  cronJobSchedule: '5 0 * * *'
+  cronJobSuccessfulJobsHistoryLimit: 5
+  cronJobFailedJobsHistoryLimit: 5
+  cronJobImage: registry.redhat.io/openshift4/ose-cli
+  containerName: etcd-backup
+  cronJobDaysToKeepPersistentETCDBackups: 5
+  
+  testCronJobTimeout: 120s
+
+
 #catalogSource:
 #  rh_catalog_version: v4.10
 
