@@ -1,33 +1,33 @@
-{{- if .Values.etcdbackup.include }}
+{{- if .Values.etcdBackup.include }}
 
 ---
 kind: CronJob
 apiVersion: batch/v1
 metadata:
-  name: {{ .Values.etcdbackup.cronJobName }}
-  namespace: {{ .Values.etcdbackup.namespace }}
+  name: {{ .Values.etcdBackup.cronJobName }}
+  namespace: {{ .Values.etcdBackup.namespace }}
   labels:
-    {{- include "Values.etcdbackup.labels" . | nindent 4 }}
+    {{- include "Values.etcdBackup.labels" . | nindent 4 }}
 spec:
-  schedule: "{{ .Values.etcdbackup.cronJobSchedule }}"
+  schedule: "{{ .Values.etcdBackup.cronJobSchedule }}"
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
     metadata:
       labels:
-        {{- include "Values.etcdbackup.labels" . | nindent 8 }}
+        {{- include "Values.etcdBackup.labels" . | nindent 8 }}
     spec:
       backoffLimit: 0
       template:
         metadata:
           labels:
-            {{- include "Values.etcdbackup.labels" . | nindent 12 }}
+            {{- include "Values.etcdBackup.labels" . | nindent 12 }}
         spec:
           nodeSelector:
             node-role.kubernetes.io/master: ''
           restartPolicy: Never
           activeDeadlineSeconds: 500
-          serviceAccountName: {{ .Values.etcdbackup.serviceAccount }}
+          serviceAccountName: {{ .Values.etcdBackup.serviceAccount }}
           hostPID: true
           hostNetwork: true
           enableServiceLinks: true
@@ -37,7 +37,7 @@ spec:
           containers:
             - resources: {}
               terminationMessagePath: /dev/termination-log
-              name: { .Values.etcdbackup.containerName }}
+              name: { .Values.etcdBackup.containerName }}
               command:
               - /bin/bash
               - '-c'
@@ -55,7 +55,7 @@ spec:
                 ls -al /mnt/backup/*
               env:
               - name: DAYS_TO_KEEP_PERSISTENT_ETCD_BACKUPS
-                value: "{{ .Values.etcdbackup.cronJobDaysToKeepPersistentETCDBackups }}"
+                value: "{{ .Values.etcdBackup.cronJobDaysToKeepPersistentETCDBackups }}"
               securityContext:
                 privileged: true
                 runAsUser: 0
@@ -69,11 +69,11 @@ spec:
                 - name: host
                   mountPath: /host
               terminationMessagePolicy: File
-              image: {{ .Values.etcdbackup.cronJobImage }}
+              image: {{ .Values.etcdBackup.cronJobImage }}
           volumes:
           - name: backup
             persistentVolumeClaim:
-              claimName: {{ .Values.etcdbackup.pvcName }}
+              claimName: {{ .Values.etcdBackup.pvcName }}
           - name: host
             hostPath:
               path: /
@@ -81,7 +81,7 @@ spec:
           dnsPolicy: ClusterFirst
           tolerations:
           - key: node-role.kubernetes.io/master
-  successfulJobsHistoryLimit: {{ .Values.cronJobSuccessfulJobsHistoryLimit }}
-  failedJobsHistoryLimit: {{ .Values.cronJobFailedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.etcdBackup.cronJobSuccessfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.etcdBackup.cronJobFailedJobsHistoryLimit }}
 
 {{ end }}
