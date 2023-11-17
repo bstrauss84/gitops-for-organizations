@@ -1,19 +1,19 @@
-{{- if .Values.etcdbackup.include }}
+{{- if .Values.etcdBackup.include }}
 
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ .Values.etcdbackup.clusterRoleBindingName }}
+  name: {{ .Values.etcdBackup.clusterRoleBindingName }}
   labels:
-    {{- include ".Values.etcdbackup.labels" . | nindent 4 }}
+    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.etcdbackup.serviceAccount }}
-    namespace: {{ .Values.etcdbackup.namespace }}
+    name: {{ .Values.etcdBackup.serviceAccount }}
+    namespace: {{ .Values.etcdBackup.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Values.etcdbackup.clusterRoleName }}
+  name: {{ .Values.etcdBackup.clusterRoleName }}
 
 {{ end }}
