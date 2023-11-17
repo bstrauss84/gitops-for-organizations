@@ -37,7 +37,7 @@ spec:
           containers:
             - resources: {}
               terminationMessagePath: /dev/termination-log
-              name: { .Values.etcdBackup.containerName }}
+              name: {{ .Values.etcdBackup.containerName }}
               command:
               - /bin/bash
               - '-c'
