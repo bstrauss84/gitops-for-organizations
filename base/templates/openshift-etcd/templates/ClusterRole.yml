@@ -1,4 +1,4 @@
-{{- if .Values.etcdbackup.include }}
+{{- if .Values.etcdBackup.include }}
 
 ---
 # NOTE: To be able to run the ETCD backup commands need to be able to sudo,
@@ -6,9 +6,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .Values.etcdbackup.clusterRoleName }}
+  name: {{ .Values.etcdBackup.clusterRoleName }}
   labels:
-    {{- include ".Values.etcdbackup.labels" . | nindent 4 }}
+    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
 rules:
   - verbs:
       - use
