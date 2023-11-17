@@ -7,7 +7,7 @@ metadata:
   name: {{ .Values.etcdBackup.cronJobName }}
   namespace: {{ .Values.etcdBackup.namespace }}
   labels:
-    {{- include "Values.etcdBackup.labels" . | nindent 4 }}
+    {{- include Values.etcdBackup.labels . | nindent 4 }}
 spec:
   schedule: "{{ .Values.etcdBackup.cronJobSchedule }}"
   concurrencyPolicy: Forbid
@@ -15,13 +15,13 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        {{- include "Values.etcdBackup.labels" . | nindent 8 }}
+        {{- include Values.etcdBackup.labels . | nindent 8 }}
     spec:
       backoffLimit: 0
       template:
         metadata:
           labels:
-            {{- include "Values.etcdBackup.labels" . | nindent 12 }}
+            {{- include Values.etcdBackup.labels . | nindent 12 }}
         spec:
           nodeSelector:
             node-role.kubernetes.io/master: ''
