@@ -7,21 +7,21 @@ metadata:
   name: {{ .Values.etcdBackup.cronJobName }}
   namespace: {{ .Values.etcdBackup.namespace }}
 #  labels:
-#    {{- include Values.etcdBackup.labels . | nindent 4 }}
+#    {{- include .Values.etcdBackup.labels . | nindent 4 }}
 spec:
-  schedule: {{ .Values.etcdBackup.cronJobSchedule }}
+  schedule: "{{ .Values.etcdBackup.cronJobSchedule }}"
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
     metadata:
 #      labels:
-#        {{- include Values.etcdBackup.labels . | nindent 8 }}
+#        {{- include .Values.etcdBackup.labels . | nindent 8 }}
     spec:
       backoffLimit: 0
       template:
         metadata:
 #          labels:
-#            {{- include Values.etcdBackup.labels . | nindent 12 }}
+#            {{- include .Values.etcdBackup.labels . | nindent 12 }}
         spec:
           nodeSelector:
             node-role.kubernetes.io/master: ''
@@ -55,7 +55,7 @@ spec:
                 ls -al /mnt/backup/*
               env:
               - name: DAYS_TO_KEEP_PERSISTENT_ETCD_BACKUPS
-                value: {{ .Values.etcdBackup.cronJobDaysToKeepPersistentETCDBackups }}
+                value: "{{ .Values.etcdBackup.cronJobDaysToKeepPersistentETCDBackups }}"
               securityContext:
                 privileged: true
                 runAsUser: 0
