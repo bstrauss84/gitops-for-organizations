@@ -9,7 +9,7 @@ metadata:
 #  labels:
 #    {{- include Values.etcdBackup.labels . | nindent 4 }}
 spec:
-  schedule: "{{ .Values.etcdBackup.cronJobSchedule }}"
+  schedule: {{ .Values.etcdBackup.cronJobSchedule }}
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
@@ -55,7 +55,7 @@ spec:
                 ls -al /mnt/backup/*
               env:
               - name: DAYS_TO_KEEP_PERSISTENT_ETCD_BACKUPS
-                value: "{{ .Values.etcdBackup.cronJobDaysToKeepPersistentETCDBackups }}"
+                value: {{ .Values.etcdBackup.cronJobDaysToKeepPersistentETCDBackups }}
               securityContext:
                 privileged: true
                 runAsUser: 0
