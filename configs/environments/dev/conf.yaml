@@ -4,7 +4,7 @@ cluster:
 
 # Console Banner
 consoleNotification:
-  include: true
+  include: false
   text: "𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐌𝐄𝐍𝐓 𝐂𝐋𝐔𝐒𝐓𝐄𝐑"
   backgroundColor: "#FFFF00"
   color: "#000000"
