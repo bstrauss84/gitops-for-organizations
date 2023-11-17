@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: 'https://api.cluster-xvdt9.xvdt9.sandbox2417.opentlc.com:6443'
   project: default
   source:
     path: configs/clusters/mgmt/cluster-xvdt9.xvdt9.sandbox2417.opentlc.com
