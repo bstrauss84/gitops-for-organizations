@@ -81,5 +81,7 @@ spec:
           dnsPolicy: ClusterFirst
           tolerations:
           - key: node-role.kubernetes.io/master
+  successfulJobsHistoryLimit: {{ .Values.cronJobSuccessfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cronJobFailedJobsHistoryLimit }}
 
 {{ end }}
