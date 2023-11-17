@@ -16,6 +16,7 @@ spec:
               elements:
                 - template: ocp-console-banner
                 - template: infra-nodes
+                - template: openshift-etcd
   template:
     metadata:
       name: "config-{{cluster.environment}}-{{cluster.name}}-{{template}}"
