@@ -7,8 +7,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ .Values.etcdBackup.clusterRoleName }}
-  labels:
-    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
+#  labels:
+#    {{- include ".Values.etcdBackup.labels" . | nindent 4 }}
 rules:
   - verbs:
       - use
