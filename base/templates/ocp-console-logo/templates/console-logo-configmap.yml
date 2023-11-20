@@ -2,7 +2,7 @@
 
 ---
 {{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
-{{- $imageName := filepath.Base $imageFile }}
+{{- $imageNameWithExtension := last (splitList "/" $imageFile) }}
 {{- $imageContent := .Files.Get $imageFile | b64enc | quote }}
 
 apiVersion: v1
@@ -11,6 +11,6 @@ metadata:
   name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 data:
-  {{ $imageName }}: {{ $imageContent }}
+  {{ $imageNameWithExtension }}: {{ $imageContent }}
 
 {{ end }}
