@@ -10,7 +10,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
-data:
+binaryData:
   {{ $imageNameWithExtension }}: {{ $imageContent }}
 
 {{ end }}
