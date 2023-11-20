@@ -11,8 +11,8 @@ cluster:
 infraConfig:
   include: true
   nodes:
-  - ip-10-0-145-199.us-east-2.compute.internal
-  - ip-10-0-158-8.us-east-2.compute.internal
+  - ip-10-0-133-87.ec2.internal
+  - ip-10-0-152-67.ec2.internal
 
 #catalogSource:
 #  rh_catalog_version: v4.10
