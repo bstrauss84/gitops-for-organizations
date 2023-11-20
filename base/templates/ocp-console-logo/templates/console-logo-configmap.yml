@@ -4,14 +4,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.consoleLogo.logoConfigMapName }}
+  name: {{ .Release.Name }}-{{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 binaryData:
 {{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
-{{- $imageContent := .Files.Get $imageFile }}
-{{- $imageName := (splitList "/" $imageFile | last) }}
-{{- $imageExtension := (splitList "." $imageName | last) }}
-{{- $key := printf "%s.%s" (trimSuffix $imageName (printf ".%s" $imageExtension)) $imageExtension }}
-{{ $key }}: {{ $imageContent | b64enc | quote }}
+{{- $imageContent := .Files.Get $imageFile | b64enc | quote }}
+debug_imageFile: {{ $imageFile | quote }}
+debug_imageContent: {{ $imageContent }}
 
 {{ end }}
