@@ -42,6 +42,10 @@ etcdBackup:
   
   testCronJobTimeout: 120s
 
+consoleLogo:
+  include: true
+  logoConfigMapName: custom-logo
+  logoImageFilepath: ../../../../files/custom-logo.png
 
 #catalogSource:
 #  rh_catalog_version: v4.10

@@ -15,6 +15,7 @@ spec:
           - list:
               elements:
                 - template: ocp-console-banner
+                - template: ocp-console-logo
                 - template: infra-nodes
                 - template: openshift-etcd
   template:
