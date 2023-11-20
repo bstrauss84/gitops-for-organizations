@@ -7,14 +7,11 @@ metadata:
   name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 binaryData:
-  {{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
-  {{- $imageContent := .Files.Get $imageFile }}
-  {{- $imageName := (splitList "/" $imageFile | last) }}
-  {{- $imageExtension := (splitList "." $imageName | last) }}
-  {{- $imageNameWithoutExtension := (trimSuffix $imageName ("." | $imageExtension)) }}
-  {{- $key := printf "%s.%s" $imageNameWithoutExtension $imageExtension }}
-  {{- $encodedImage := $imageContent | b64enc }}
-  {{- $key }}: |
-    {{- $encodedImage | quote }}
+{{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
+{{- $imageContent := .Files.Get $imageFile }}
+{{- $imageName := (splitList "/" $imageFile | last) }}
+{{- $imageExtension := (splitList "." $imageName | last) }}
+{{- $key := printf "%s.%s" (trimSuffix $imageName (printf ".%s" $imageExtension)) $imageExtension }}
+{{ $key }}: {{ $imageContent | b64enc | quote }}
 
 {{ end }}
