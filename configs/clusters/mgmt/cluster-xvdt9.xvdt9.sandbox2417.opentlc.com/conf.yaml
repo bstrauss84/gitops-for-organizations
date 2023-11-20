@@ -45,7 +45,7 @@ etcdBackup:
 consoleLogo:
   include: true
   logoConfigMapName: custom-logo
-  logoImageFilepath: files/custom-logo.png
+  logoImageFilepath: files/custom-logo-dha.png
 
 #catalogSource:
 #  rh_catalog_version: v4.10
