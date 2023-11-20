@@ -1,15 +1,15 @@
 {{- if .Values.consoleLogo.include }}
 
 ---
+{{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
+{{- $imageContent := .Files.Get $imageFile }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 binaryData:
-{{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
-{{- $imageContent := .Files.Get $imageFile | b64enc | quote }}
-debug_imageFile: {{ $imageFile | quote }}
-debug_imageContent: {{ $imageContent }}
+  debug_imageFile: {{ $imageFile | quote }}
+  debug_imageContent: {{ $imageContent | b64enc | quote }}
 
 {{ end }}
