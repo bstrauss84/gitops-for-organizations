@@ -7,7 +7,7 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 binaryData:
-{{- $imageContent := .Files.Get "files/custom-logo.png" | b64enc | quote }}
+{{- $imageContent := .Files.Get "../files/custom-logo.png" | b64enc | quote }}
 debug_imageContent: {{ $imageContent }}
 
 {{ end }}
