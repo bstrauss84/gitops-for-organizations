@@ -2,14 +2,14 @@
 
 ---
 {{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
-{{- $imageContent := .Files.Get $imageFile }}
+{{- $imageContent := .Files.Get $imageFile | b64enc | quote }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
-binaryData:
+data:
   debug_imageFile: {{ $imageFile | quote }}
-  debug_imageContent: {{ $imageContent | b64enc | quote }}
+  debug_imageContent: {{ $imageContent }}
 
 {{ end }}
