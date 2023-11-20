@@ -1,0 +1,34 @@
+{{- if .Values.clusterAutoscaler.include }}
+
+---
+apiVersion: "autoscaling.openshift.io/v1"
+kind: "ClusterAutoscaler"
+metadata:
+  name: "{{ .Values.clusterAutoscaler.name }}"
+spec:
+  podPriorityThreshold: {{ .Values.clusterAutoscaler.podPriorityThreshold }}
+  resourceLimits:
+    maxNodesTotal: {{ .Values.clusterAutoscaler.resourceLimits.maxNodesTotal }}
+    cores:
+      min: {{ .Values.clusterAutoscaler.resourceLimits.cores.min }}
+      max: {{ .Values.clusterAutoscaler.resourceLimits.cores.max }}
+    memory:
+      min: {{ .Values.clusterAutoscaler.resourceLimits.memory.min }}
+      max: {{ .Values.clusterAutoscaler.resourceLimits.memory.max }}
+{{- if .Values.clusterAutoscaler.resourceLimits.gpus }}
+    gpus:
+{{- range .Values.clusterAutoscaler.resourceLimits.gpus }}
+      - type: {{ .type }}
+        min: {{ .min }}
+        max: {{ .max }}
+{{- end }}
+{{- end }}
+  logVerbosity: {{ .Values.clusterAutoscaler.logVerbosity }}
+  scaleDown:
+    enabled: {{ .Values.clusterAutoscaler.scaleDown.enabled }}
+    delayAfterAdd: {{ .Values.clusterAutoscaler.scaleDown.delayAfterAdd }}
+    delayAfterDelete: {{ .Values.clusterAutoscaler.scaleDown.delayAfterDelete }}
+    delayAfterFailure: {{ .Values.clusterAutoscaler.scaleDown.delayAfterFailure }}
+    unneededTime: {{ .Values.clusterAutoscaler.scaleDown.unneededTime }}
+    utilizationThreshold: "{{ .Values.clusterAutoscaler.scaleDown.utilizationThreshold }}"
+{{ end }}

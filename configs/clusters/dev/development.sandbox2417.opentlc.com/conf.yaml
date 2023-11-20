@@ -19,6 +19,34 @@ consoleLogo:
   logoConfigMapName: custom-logo
   logoImageFilepath: files/custom-logo-dha.png
 
+clusterAutoscaler:
+  include: true
+  name: "default"
+  podPriorityThreshold: -10
+  resourceLimits:
+    maxNodesTotal: 24
+    cores:
+      min: 8
+      max: 128
+    memory:
+      min: 4
+      max: 256
+#    gpus:
+#      - type: nvidia.com/gpu
+#        min: 0
+#        max: 16
+#      - type: amd.com/gpu
+#        min: 0
+#        max: 4
+  logVerbosity: 4
+  scaleDown:
+    enabled: true
+    delayAfterAdd: 10m
+    delayAfterDelete: 5m
+    delayAfterFailure: 30s
+    unneededTime: 5m
+    utilizationThreshold: "0.4"
+
 #catalogSource:
 #  rh_catalog_version: v4.10
 

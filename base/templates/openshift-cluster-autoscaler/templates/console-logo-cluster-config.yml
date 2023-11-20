@@ -1,0 +1,18 @@
+{{- if .Values.consoleLogo.include }}
+
+---
+{{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
+{{- $imageNameWithExtension := last (splitList "/" $imageFile) }}
+
+apiVersion: operator.openshift.io/v1
+kind: Console
+metadata:
+  name: cluster
+spec:
+  customization:
+    customLogoFile:
+      key: {{ $imageNameWithExtension }}  # Dynamic key name from the ConfigMap
+      name: {{ .Values.consoleLogo.logoConfigMapName }}  # Dynamic ConfigMap name
+    customProductName: Console
+
+{{ end }}
