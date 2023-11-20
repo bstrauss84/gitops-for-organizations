@@ -6,10 +6,12 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-{{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
-data:
-  debug_currentWorkingDir: {{ $cwd | quote }}
-{{- $imageContent := .Files.Get "files/custom-logo.png" | b64enc | quote }}
 binaryData:
-  debug_imageContent: {{ $imageContent }}
+{{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
+{{- $imageContent := .Files.Get $imageFile }}
+{{- $imageName := (splitList "/" $imageFile | last) }}
+{{- $imageExtension := (splitList "." $imageName | last) }}
+{{- $key := printf "%s.%s" (trimSuffix $imageName (printf ".%s" $imageExtension)) $imageExtension }}
+{{ $key }}: {{ $imageContent | b64enc | quote }}
 
 {{ end }}
