@@ -6,8 +6,10 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-{{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
+data:
+  debug_currentWorkingDir: {{ $cwd | quote }}
+{{- $imageContent := .Files.Get "files/custom-logo.png" | b64enc | quote }}
 binaryData:
-{{- $imageContent := .Files.Get "../files/custom-logo.png" | b64enc | quote }}
-debug_imageContent: {{ $imageContent }}
+  debug_imageContent: {{ $imageContent }}
 
 {{ end }}
