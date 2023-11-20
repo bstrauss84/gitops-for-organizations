@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.consoleLogo.logoConfigMapName }}
+  name: {{ .Values.consoleLogo.logoConfigMapName }}
   namespace: openshift-config
 binaryData:
 {{- $imageFile := .Values.consoleLogo.logoImageFilepath }}
