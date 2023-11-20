@@ -14,6 +14,11 @@ infraConfig:
   - ip-10-0-133-87.ec2.internal
   - ip-10-0-152-67.ec2.internal
 
+consoleLogo:
+  include: true
+  logoConfigMapName: custom-logo
+  logoImageFilepath: files/custom-logo-dha.png
+
 #catalogSource:
 #  rh_catalog_version: v4.10
 
