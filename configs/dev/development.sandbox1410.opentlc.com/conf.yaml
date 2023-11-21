@@ -63,6 +63,12 @@ clusterAutoscaler:
     unneededTime: 5m
     utilizationThreshold: "0.4"
 
+  # Machine Autoscaler parameters
+  machineAutoScalerName: worker-machine-autoscaler
+  machineSetName: development-plsm7-worker-us-east-2c
+  machineSetMinReplicas: 3
+  machineSetMaxReplicas: 5
+
 #catalogSource:
 #  rh_catalog_version: v4.10
 
