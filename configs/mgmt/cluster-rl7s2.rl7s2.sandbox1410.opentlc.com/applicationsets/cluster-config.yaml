@@ -11,7 +11,7 @@ spec:
               repoURL: https://github.com/bstrauss84/gitops-for-organizations.git
               revision: develop
               files:
-                - path: "configs/**/conf.yaml"
+                - path: "configs/{{cluster.environment}}/conf.yaml"
           - list:
               elements:
                 - template: ocp-console-banner
