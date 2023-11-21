@@ -1,18 +1,34 @@
 cluster:
   name: development
-  domain: sandbox2417.opentlc.com
-  fqdn: development.sandbox2417.opentlc.com
-  address: "https://api.development.sandbox2417.opentlc.com:6443"
+  domain: sandbox1410.opentlc.com
+  fqdn: development.sandbox1410.opentlc.com
+  address: "https://api.development.sandbox1410.opentlc.com:6443"
   environment: dev
   cloud: aws
   region: us-east-2
 #  registry: quay-dev.io
 
 infraConfig:
-  include: true
+  include: false
   nodes:
   - ip-10-0-133-87.ec2.internal
   - ip-10-0-152-67.ec2.internal
+
+infraMachineSet:
+  include: true
+  availabilityZones: c
+  infraMachineSetName: openshift-infra-machines
+  replicas: 3
+  amiID: "ami-0ed3f273b2e74f814"
+  instanceType: "m5.4xlarge"
+  availabilityZones: c
+  volume:
+    sizeGB: 100
+    type: "gp2"
+    encrypted: true
+    kmsKeyARN: "" # Replace with your KMS Key ARN if applicable
+  userDataSecretName: "infra-user-data"
+  credentialsSecretName: "aws-cloud-credentials"
 
 consoleLogo:
   include: true

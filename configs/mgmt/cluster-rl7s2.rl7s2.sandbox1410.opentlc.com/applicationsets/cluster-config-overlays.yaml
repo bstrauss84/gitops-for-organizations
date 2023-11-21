@@ -9,7 +9,7 @@ spec:
       repoURL: https://github.com/bstrauss84/gitops-for-organizations.git
       revision: develop
       files:
-        - path: "configs/clusters/**/conf.yaml"
+        - path: "configs/**/conf.yaml"
   template:
     metadata:
       name: "config-{{cluster.environment}}-{{cluster.name}}-overlay"
@@ -23,7 +23,7 @@ spec:
       source:
         repoURL: https://github.com/bstrauss84/gitops-for-organizations.git
         targetRevision: develop
-        path: configs/clusters/{{cluster.environment}}/{{cluster.fqdn}}/overlay
+        path: configs/{{cluster.environment}}/{{cluster.fqdn}}/overlay
       destination:
         server: "{{cluster.address}}"
       syncPolicy: {}

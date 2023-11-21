@@ -1,8 +1,8 @@
 cluster:
   name: local-cluster
-  domain: sandbox2417.opentlc.com
-  fqdn: cluster-xvdt9.xvdt9.sandbox2417.opentlc.com
-  address: "https://api.cluster-xvdt9.xvdt9.sandbox2417.opentlc.com:6443"
+  domain: sandbox1410.opentlc.com
+  fqdn: cluster-rl7s2.rl7s2.sandbox1410.opentlc.com
+  address: "https://api.cluster-rl7s2.rl7s2.sandbox1410.opentlc.com:6443"
   environment: mgmt
   cloud: aws
   region: us-east-2
@@ -10,12 +10,28 @@ cluster:
 
 
 infraConfig:
-  include: true
+  include: false
   nodes:
   - ip-10-0-174-237.us-east-2.compute.internal
   - ip-10-0-248-197.us-east-2.compute.internal
 #  - ip-10-0-146-168.us-east-2.compute.internal
 #  - ip-10-0-158-25.us-east-2.compute.internal
+
+infraMachineSet:
+  include: true
+  availabilityZones: c
+  infraMachineSetName: openshift-infra-machines
+  replicas: 3
+  amiID: "ami-0ed3f273b2e74f814"
+  instanceType: "m5.4xlarge"
+  availabilityZones: c
+  volume:
+    sizeGB: 100
+    type: "gp2"
+    encrypted: true
+    kmsKeyARN: "" # Replace with your KMS Key ARN if applicable
+  userDataSecretName: "infra-user-data"
+  credentialsSecretName: "aws-cloud-credentials"  
 
 etcdBackup:
   include: true
