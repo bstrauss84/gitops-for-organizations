@@ -57,10 +57,10 @@ clusterAutoscaler:
   logVerbosity: 4
   scaleDown:
     enabled: true
-    delayAfterAdd: 10m
+    delayAfterAdd: 1m
     delayAfterDelete: 5m
     delayAfterFailure: 30s
-    unneededTime: 5m
+    unneededTime: 30s
     utilizationThreshold: "0.4"
 
   # Machine Autoscaler parameters
