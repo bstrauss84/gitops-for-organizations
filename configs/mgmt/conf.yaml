@@ -1,5 +1,5 @@
 # Cluster
-cluster:
+#cluster:
 #  registry: quay-dev.io
 
 # Console Banner
