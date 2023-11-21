@@ -64,7 +64,7 @@ clusterAutoscaler:
     utilizationThreshold: "0.4"
 
   # Machine Autoscaler parameters
-  machineAutoScalerName: worker-machine-autoscaler
+  machineAutoScalerName: default
   machineSetName: development-plsm7-worker-us-east-2c
   machineSetMinReplicas: 3
   machineSetMaxReplicas: 5
