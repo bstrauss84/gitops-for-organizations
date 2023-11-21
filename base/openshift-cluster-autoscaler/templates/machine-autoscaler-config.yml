@@ -1,4 +1,4 @@
-{{- if .Values.clusterAutoscalerzzz.include }}
+{{- if .Values.clusterAutoscaler.include }}
 
 ---
 apiVersion: "autoscaling.openshift.io/v1beta1"
