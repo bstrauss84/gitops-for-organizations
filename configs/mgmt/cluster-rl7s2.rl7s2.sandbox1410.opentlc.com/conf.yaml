@@ -22,16 +22,16 @@ infraMachineSet:
   availabilityZones: c
   infraMachineSetName: openshift-infra-machines
   replicas: 3
-  amiID: "ami-0ed3f273b2e74f814"
-  instanceType: "m5.4xlarge"
+  amiID: ami-0ed3f273b2e74f814
+  instanceType: m5.4xlarge
   availabilityZones: c
   volume:
     sizeGB: 100
-    type: "gp2"
+    type: gp2
     encrypted: true
     kmsKeyARN: "" # Replace with your KMS Key ARN if applicable
-  userDataSecretName: "infra-user-data"
-  credentialsSecretName: "aws-cloud-credentials"  
+  userDataSecretName: infra-user-data
+  credentialsSecretName: aws-cloud-credentials  
 
 etcdBackup:
   include: true
