@@ -54,7 +54,7 @@ clusterAutoscaler:
 #      - type: amd.com/gpu
 #        min: 0
 #        max: 4
-  logVerbosity: 4
+  logVerbosity: 2
   scaleDown:
     enabled: true
     delayAfterAdd: 1m
