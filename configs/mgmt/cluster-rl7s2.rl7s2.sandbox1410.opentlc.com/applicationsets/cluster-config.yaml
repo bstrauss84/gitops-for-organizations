@@ -40,9 +40,3 @@ spec:
       destination:
         server: "{{cluster.address}}"
       syncPolicy: {}
-      ignore:
-        resources:
-        - group: ""
-          kind: ConfigMap
-          namespace: openshift-console
-          name: custom-logo
