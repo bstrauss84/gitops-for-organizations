@@ -14,5 +14,6 @@ spec:
       key: {{ $imageNameWithExtension }}  # Dynamic key name from the ConfigMap
       name: {{ .Values.consoleLogo.logoConfigMapName }}  # Dynamic ConfigMap name
     customProductName: Console
+  managementState: Managed
 
 {{ end }}
