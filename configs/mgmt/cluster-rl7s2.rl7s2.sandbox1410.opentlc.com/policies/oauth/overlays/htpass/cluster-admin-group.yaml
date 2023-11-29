@@ -4,6 +4,5 @@ metadata:
   name: cluster-admins
 users:
 - admin
-- bledi
 - jkeam
 - mbartosek
