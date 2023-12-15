@@ -63,6 +63,43 @@ consoleLogo:
   logoConfigMapName: custom-logo
   logoImageFilepath: files/custom-logo-dha.png
 
+
+clusterAutoscaler:
+  include: true
+  name: "default"
+  podPriorityThreshold: -10
+  resourceLimits:
+    maxNodesTotal: 24
+    cores:
+      min: 8
+      max: 128
+    memory:
+      min: 4
+      max: 256
+#    gpus:
+#      - type: nvidia.com/gpu
+#        min: 0
+#        max: 16
+#      - type: amd.com/gpu
+#        min: 0
+#        max: 4
+  logVerbosity: 2
+  scaleDown:
+    enabled: true
+    delayAfterAdd: 1m
+    delayAfterDelete: 5m
+    delayAfterFailure: 30s
+    unneededTime: 30s
+    utilizationThreshold: "0.4"
+
+  # Machine Autoscaler parameters
+  machineAutoScalerName: default
+  machineSetName: cluster-wj2md-6nmsb-worker-us-east-2c
+  machineSetMinReplicas: 3
+  machineSetMaxReplicas: 5
+
+
+
 #catalogSource:
 #  rh_catalog_version: v4.10
 
