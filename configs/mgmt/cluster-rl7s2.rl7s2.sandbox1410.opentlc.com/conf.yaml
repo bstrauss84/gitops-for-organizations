@@ -1,8 +1,8 @@
 cluster:
   name: local-cluster
-  domain: sandbox1410.opentlc.com
-  fqdn: cluster-rl7s2.rl7s2.sandbox1410.opentlc.com
-  address: "https://api.cluster-rl7s2.rl7s2.sandbox1410.opentlc.com:6443"
+  domain: sandbox180.opentlc.com
+  fqdn: cluster-wj2md.wj2md.sandbox180.opentlc.com
+  address: "https://api.cluster-wj2md.wj2md.sandbox180.opentlc.com:6443"
   environment: mgmt
   cloud: aws
   region: us-east-2
