@@ -18,7 +18,7 @@ spec:
                 - template: ocp-console-logo
                 - template: infra-nodes
                 - template: openshift-etcd
-                - template: openshift-cluster-autoscaler
+                - template: openshift-cluster-as
   template:
     metadata:
       name: "config-{{cluster.environment}}-{{cluster.name}}-{{template}}"
