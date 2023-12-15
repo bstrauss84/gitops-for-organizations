@@ -5,10 +5,10 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    server: 'https://api.cluster-rl7s2.rl7s2.sandbox1410.opentlc.com:6443'
+    server: 'https://api.cluster-wj2md.wj2md.sandbox180.opentlc.com:6443'
   project: default
   source:
-    path: configs/mgmt/cluster-rl7s2.rl7s2.sandbox1410.opentlc.com
+    path: configs/mgmt/cluster-wj2md.wj2md.sandbox180.opentlc.com
     repoURL: >-
       https://github.com/bstrauss84/gitops-for-organizations.git
     targetRevision: develop
