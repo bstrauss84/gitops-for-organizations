@@ -1,0 +1,71 @@
+{{- if .Values.infraMachineSet.include }}
+
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
+  name: {{ .Values.infraMachineSet.infraMachineSetName }}
+  namespace: openshift-machine-api
+spec:
+  replicas: {{ .Values.infraMachineSet.replicas }}
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
+      machine.openshift.io/cluster-api-machineset: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}{{ .Values.infraMachineSet.availabilityZones }}'
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
+        machine.openshift.io/cluster-api-machine-role: infra
+        machine.openshift.io/cluster-api-machine-type: infra
+        machine.openshift.io/cluster-api-machineset: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}{{ .Values.infraMachineSet.availabilityZones }}'
+    spec:
+      lifecycleHooks: {}
+      metadata:
+        labels:
+          cluster.ocs.openshift.io/openshift-infra: ""
+          node-role.kubernetes.io/infra: ""
+      providerSpec:
+        value:
+          ami:
+            id: '{{ .Values.infraMachineSet.amiID }}'
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+          - ebs:
+              encrypted: {{ .Values.infraMachineSet.volume.encrypted }}
+              iops: 0
+              kmsKey:
+                arn: '{{ .Values.infraMachineSet.volume.kmsKeyARN }}'
+              volumeSize: {{ .Values.infraMachineSet.volume.sizeGB }}
+              volumeType: '{{ .Values.infraMachineSet.volume.type }}'
+          credentialsSecret:
+            name: '{{ .Values.infraMachineSet.credentialsSecretName }}'
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-profile'
+          instanceType: '{{ .Values.infraMachineSet.instanceType }}'
+          kind: AWSMachineProviderConfig
+          metadata:
+            creationTimestamp: null
+          placement:
+            availabilityZone: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}{{ .Values.infraMachineSet.availabilityZones }}'
+            region: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}'
+          securityGroups:
+          - filters:
+            - name: tag:Name
+              values:
+              - '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-sg'
+          subnet:
+            filters:
+            - name: tag:Name
+              values:
+              - '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-private-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}{{ .Values.infraMachineSet.availabilityZones }}'
+          tags:
+          - name: 'kubernetes.io/cluster/{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
+            value: owned
+          userDataSecret:
+            name: '{{ .Values.infraMachineSet.userDataSecretName }}'
+
+{{ end }}

@@ -1,0 +1,17 @@
+{{- if .Values.clusterAutoscaler.include }}
+
+---
+apiVersion: "autoscaling.openshift.io/v1beta1"
+kind: "MachineAutoscaler"
+metadata:
+  name: "{{ .Values.clusterAutoscaler.machineAutoScalerName }}"
+  namespace: openshift-machine-api
+spec:
+  minReplicas: {{ .Values.clusterAutoscaler.machineSetMinReplicas }}
+  maxReplicas: {{ .Values.clusterAutoscaler.machineSetMaxReplicas }}
+  scaleTargetRef:
+    apiVersion: "machine.openshift.io/v1beta1"
+    kind: MachineSet
+    name: "{{ .Values.clusterAutoscaler.machineSetName }}"
+
+{{ end }}

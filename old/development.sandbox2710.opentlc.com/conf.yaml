@@ -1,0 +1,24 @@
+cluster:
+  name: development
+  domain: sandbox2710.opentlc.com
+  fqdn: development.sandbox2710.opentlc.com
+  address: "https://api.development.sandbox2710.opentlc.com:6443"
+  environment: dev
+  cloud: aws
+  region: us-east-2
+#  registry: quay-dev.io
+
+infraConfig:
+  include: false
+  nodes:
+  - ip-10-0-146-121.us-east-2.compute.internal
+  - ip-10-0-149-129.us-east-2.compute.internal
+  - ip-10-0-172-246.us-east-2.compute.internal
+
+#catalogSource:
+#  rh_catalog_version: v4.10
+
+#ingress:
+#  controller:
+#    syslog:
+#      address: 10.9.0.1

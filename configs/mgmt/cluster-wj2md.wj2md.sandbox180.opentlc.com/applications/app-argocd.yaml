@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openshift-gitops-config
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: 'https://api.cluster-wj2md.wj2md.sandbox180.opentlc.com:6443'
+  project: default
+  source:
+    path: configs/mgmt/cluster-wj2md.wj2md.sandbox180.opentlc.com
+    repoURL: >-
+      https://github.com/bstrauss84/gitops-for-organizations.git
+    targetRevision: develop
+  syncPolicy: {}

@@ -1,0 +1,19 @@
+{{- if .Values.etcdBackup.include }}
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.etcdBackup.pvcName }}
+  namespace: {{ .Values.etcdBackup.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.etcdBackup.pvcStorage }}
+{{ if .Values.etcdBackup.pvcStorageClassName }}
+  storageClassName: {{ .Values.etcdBackup.pvcStorageClassName }}
+{{ end }}
+
+{{ end }}

@@ -1,0 +1,59 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-configuration-management
+policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
+  namespace: policies
+  remediationAction: enforce
+  severity: medium
+  standards:
+    - NIST SP 800-53
+  policySets:
+    - ocp-hub
+placementBindingDefaults:
+  name: "binding-openshift-clusters"
+policies:
+- name: policy-infra-mcp
+  manifests:
+    - path: node-configs
+  policySets:
+    - ocp-hub
+    - ocp-clusters
+- name: policy-web-terminal-operator
+  manifests:
+    - path: web-terminal-operator/operator/overlays/fast
+  policySets:
+    - ocp-hub
+    - ocp-clusters
+- name: policy-htpasswd-configs
+  manifests:
+    - path: oauth/overlays/htpass
+  policySets:
+    - ocp-hub
+    - ocp-clusters
+  remediationAction: enforce
+- name: policy-console-login-customization
+  manifests:
+    - path: web-console-customizations/matrix/matrix-login-template-secret.yaml
+  policySets:
+    - ocp-hub
+    - ocp-clusters
+- name: policy-console-login-customization-oauth
+  manifests:
+    - path: web-console-customizations/matrix/cluster-oauths-update.yaml
+  policySets:
+    - ocp-hub
+    - ocp-clusters
+  dependencies:
+    - name: policy-console-login-customization
+policySets:
+  - name: ocp-hub
+    placement:
+      placementPath: input/hub-placement.yaml
+  - name: ocp-clusters
+    placement:
+      placementPath: input/clusters-placement.yaml

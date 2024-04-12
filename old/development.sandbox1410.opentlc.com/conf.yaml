@@ -1,0 +1,78 @@
+cluster:
+  name: development
+  domain: sandbox1410.opentlc.com
+  fqdn: development.sandbox1410.opentlc.com
+  address: "https://api.development.sandbox1410.opentlc.com:6443"
+  environment: dev
+  cloud: aws
+  region: us-east-2
+#  registry: quay-dev.io
+
+infraConfig:
+  include: false
+  nodes:
+  - ip-10-0-133-87.ec2.internal
+  - ip-10-0-152-67.ec2.internal
+
+infraMachineSet:
+  include: true
+  availabilityZones: c
+  infraMachineSetName: openshift-infra-machines
+  replicas: 3
+  amiID: "ami-0ed3f273b2e74f814"
+  instanceType: "m5.4xlarge"
+  availabilityZones: c
+  volume:
+    sizeGB: 100
+    type: "gp2"
+    encrypted: true
+    kmsKeyARN: "" # Replace with your KMS Key ARN if applicable
+  userDataSecretName: "infra-user-data"
+  credentialsSecretName: "aws-cloud-credentials"
+
+consoleLogo:
+  include: true
+  logoConfigMapName: custom-logo
+  logoImageFilepath: files/custom-logo-dha.png
+
+clusterAutoscaler:
+  include: true
+  name: "default"
+  podPriorityThreshold: -10
+  resourceLimits:
+    maxNodesTotal: 24
+    cores:
+      min: 8
+      max: 128
+    memory:
+      min: 4
+      max: 256
+#    gpus:
+#      - type: nvidia.com/gpu
+#        min: 0
+#        max: 16
+#      - type: amd.com/gpu
+#        min: 0
+#        max: 4
+  logVerbosity: 2
+  scaleDown:
+    enabled: true
+    delayAfterAdd: 1m
+    delayAfterDelete: 5m
+    delayAfterFailure: 30s
+    unneededTime: 30s
+    utilizationThreshold: "0.4"
+
+  # Machine Autoscaler parameters
+  machineAutoScalerName: default
+  machineSetName: development-plsm7-worker-us-east-2c
+  machineSetMinReplicas: 3
+  machineSetMaxReplicas: 5
+
+#catalogSource:
+#  rh_catalog_version: v4.10
+
+#ingress:
+#  controller:
+#    syslog:
+#      address: 10.9.0.1

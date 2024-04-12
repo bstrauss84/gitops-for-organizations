@@ -1,0 +1,9 @@
+{{- if .Values.etcdBackup.include }}
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.etcdBackup.namespace }}
+
+{{ end }}

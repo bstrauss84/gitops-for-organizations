@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-config-overlays
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/bstrauss84/gitops-for-organizations.git
+      revision: develop
+      files:
+        - path: "configs/**/conf.yaml"
+  template:
+    metadata:
+      name: "config-{{cluster.environment}}-{{cluster.name}}-overlay"
+      labels:
+        environment: "{{cluster.environment}}"
+        cluster: "{{cluster.fqdn}}"
+        region: "{{cluster.region}}"
+        cloud: "{{cluster.cloud}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/bstrauss84/gitops-for-organizations.git
+        targetRevision: develop
+        path: configs/{{cluster.environment}}/{{cluster.fqdn}}/overlay
+      destination:
+        server: "{{cluster.address}}"
+      syncPolicy: {}

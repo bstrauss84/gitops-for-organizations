@@ -1,0 +1,109 @@
+cluster:
+  name: local-cluster
+  domain: sandbox180.opentlc.com
+  fqdn: cluster-wj2md.wj2md.sandbox180.opentlc.com
+  address: "https://api.cluster-wj2md.wj2md.sandbox180.opentlc.com:6443"
+  environment: mgmt
+  cloud: aws
+  region: us-east-2
+#  registry: quay-dev.io
+
+
+infraConfig:
+  include: false
+  nodes:
+  - ip-10-0-174-237.us-east-2.compute.internal
+  - ip-10-0-248-197.us-east-2.compute.internal
+#  - ip-10-0-146-168.us-east-2.compute.internal
+#  - ip-10-0-158-25.us-east-2.compute.internal
+
+infraMachineSet:
+  include: true
+  availabilityZones: c
+  infraMachineSetName: openshift-infra-machines
+  replicas: 3
+  amiID: ami-0ed3f273b2e74f814
+  instanceType: m5.4xlarge
+  availabilityZones: c
+  volume:
+    sizeGB: 100
+    type: gp2
+    encrypted: true
+    kmsKeyARN: "" # Replace with your KMS Key ARN if applicable
+  userDataSecretName: infra-user-data
+  credentialsSecretName: aws-cloud-credentials  
+
+etcdBackup:
+  include: true
+  namespace: etcdbackup
+  serviceAccount: etcdbackup-approver
+  labels:
+    app: etcd
+    component: backup
+  
+  clusterRoleName: use-privileged-scc
+  clusterRoleBindingName: etcd-backup-sa-privileged
+  
+  pvcName: etcd-backup
+  pvcStorage: 100Gi
+  storageClassName:  # Leave empty to use default storageclass
+  
+  cronJobName: cronjob-etcd-backup
+  cronJobSchedule: '5 0 * * *'
+  cronJobSuccessfulJobsHistoryLimit: 5
+  cronJobFailedJobsHistoryLimit: 5
+  cronJobImage: registry.redhat.io/openshift4/ose-cli
+  containerName: etcd-backup
+  cronJobDaysToKeepPersistentETCDBackups: 5
+  
+  testCronJobTimeout: 120s
+
+consoleLogo:
+  include: true
+  logoConfigMapName: custom-logo
+  logoImageFilepath: files/custom-logo-dha.png
+
+
+clusterAutoscaler:
+  include: true
+  name: "default"
+  podPriorityThreshold: -10
+  resourceLimits:
+    maxNodesTotal: 24
+    cores:
+      min: 8
+      max: 128
+    memory:
+      min: 4
+      max: 256
+#    gpus:
+#      - type: nvidia.com/gpu
+#        min: 0
+#        max: 16
+#      - type: amd.com/gpu
+#        min: 0
+#        max: 4
+  logVerbosity: 2
+  scaleDown:
+    enabled: true
+    delayAfterAdd: 1m
+    delayAfterDelete: 5m
+    delayAfterFailure: 30s
+    unneededTime: 30s
+    utilizationThreshold: "0.4"
+
+  # Machine Autoscaler parameters
+  machineAutoScalerName: default
+  machineSetName: cluster-wj2md-6nmsb-worker-us-east-2c
+  machineSetMinReplicas: 3
+  machineSetMaxReplicas: 5
+
+
+
+#catalogSource:
+#  rh_catalog_version: v4.10
+
+#ingress:
+#  controller:
+#    syslog:
+#      address: 10.9.0.1
